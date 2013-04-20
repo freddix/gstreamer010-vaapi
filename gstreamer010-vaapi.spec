@@ -1,11 +1,11 @@
 Summary:	VA-API acceleration for GStreamer
 Name:		gstreamer010-vaapi
-Version:	0.5.1
+Version:	0.5.3
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://www.freedesktop.org/software/vaapi/releases/gstreamer-vaapi/gstreamer-vaapi-%{version}.tar.bz2
-# Source0-md5:	0ac83a03d903943bd09bdc39eb5eb203
+# Source0-md5:	c3bbf40f96c9c731bc9d57b31ffe39da
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib-devel
@@ -51,7 +51,9 @@ libraries.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-static
+	--disable-silent-rules	\
+	--disable-static	\
+	--with-gstreamer-api=0.10
 %{__make}
 
 %install
@@ -60,8 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
-rm -rf $RPM_BUILD_ROOT%{_libdir}/gstreamer-0.10/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gstreamer-0.10/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
